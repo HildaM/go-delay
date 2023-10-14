@@ -264,7 +264,7 @@ return msg
 `
 
 func (q *DelayQueue) ready2Unack() (string, error) {
-	retryTime := time.Now().Add(q.maxConsumeDuration)
+	retryTime := time.Now().Add(q.maxConsumeDuration).Unix()
 	keys := []string{q.readyKey, q.unAckKey}
 
 	res, err := q.redisCli.Eval(ready2UnackScript, keys, []interface{}{retryTime})
